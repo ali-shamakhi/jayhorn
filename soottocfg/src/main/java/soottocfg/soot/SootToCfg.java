@@ -254,8 +254,13 @@ public class SootToCfg {
 		try {
 			Body body = null;
 			try {
-				body = sm.retrieveActiveBody();
-				performSootOptimizations(body);
+				// TODO: String operations model
+//				if (sm.getDeclaringClass().getName().equals("java.lang.String")) {
+//					body = getStringMethodBody(sm);
+//				} else {
+					body = sm.retrieveActiveBody();
+					performSootOptimizations(body);
+//				}
 			} catch (RuntimeException e) {
 				// TODO: print warning that body couldn't be retrieved.
 				return;
@@ -291,6 +296,11 @@ public class SootToCfg {
 		}				
 
 		for (SootClass sc : classes) {
+			// TODO: String operations model
+//			if (sc.resolvingLevel() >= SootClass.SIGNATURES && sc.getName().contains("java.lang.String")) {
+//				constructCfg(sc);
+//				continue;
+//			}
 			if (sc.resolvingLevel() >= SootClass.SIGNATURES && sc.isApplicationClass()) {
 				if ((!sc.isJavaLibraryClass() && !sc.isLibraryClass())) {
 					constructCfg(sc);

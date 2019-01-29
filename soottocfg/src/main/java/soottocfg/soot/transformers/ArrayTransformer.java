@@ -14,6 +14,7 @@ import java.util.Map;
 import com.google.common.base.Verify;
 
 import soot.ArrayType;
+import soot.CharType;
 import soot.IntType;
 import soot.Local;
 import soot.Modifier;
@@ -131,7 +132,13 @@ public class ArrayTransformer extends AbstractSceneTransformer {
 				for (SootField f : sc.getFields()) {
 					if (f.getType() instanceof ArrayType) {
 						final String oldSignature = f.getSignature();
-						f.setType(arrayTypeToRefType(f.getType()));
+						// TODO: String content model #2
+//						if (sc.getName().equals("java.lang.String") &&
+//								((ArrayType)f.getType()).getElementType() instanceof CharType) {
+//							f.setType(arrayTypeToAbstractList(f.getType()));
+//						} else {
+							f.setType(arrayTypeToRefType(f.getType()));
+//						}
 						fieldSubstitutionMap.put(oldSignature, f);
 					}
 				}

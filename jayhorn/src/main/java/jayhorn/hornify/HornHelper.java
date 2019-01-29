@@ -59,11 +59,16 @@ public class HornHelper {
 		}
 		if (t instanceof ReferenceType) {
 			ReferenceType rt = (ReferenceType) t;
-			final ProverType[] subTypes = new ProverType[rt.getElementTypeList().size()];
-			for (int i = 0; i < rt.getElementTypeList().size(); i++) {
-				subTypes[i] = getProverType(p, rt.getElementTypeList().get(i));
-			}
-			return p.getTupleType(subTypes);
+			// TODO: String content model #1
+//			if (rt.getClassVariable().getName().equals("java/lang/String")) {
+//				return p.getStringType();
+//			} else {
+				final ProverType[] subTypes = new ProverType[rt.getElementTypeList().size()];
+				for (int i = 0; i < rt.getElementTypeList().size(); i++) {
+					subTypes[i] = getProverType(p, rt.getElementTypeList().get(i));
+				}
+				return p.getTupleType(subTypes);
+//			}
 		}
                 if (t instanceof WrappedProverType)
                     return ((WrappedProverType)t).getProverType();
